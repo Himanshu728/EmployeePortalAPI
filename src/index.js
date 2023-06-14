@@ -35,7 +35,6 @@ function getCollection() {
             type: String,
             required: true
         },
-        age: Number,
         role: {
             type: String,
             default: 'Engineer'
