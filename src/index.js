@@ -108,7 +108,7 @@ app.post('/getAttendance', async function (req, res){
     await getAttendance(res, req.body);
 });
 
-app.post('/updateAttendance', async function (req, res){
+app.put('/updateAttendance', async function (req, res){
     //updating the attendance of the given user
     await updateAttendance(res, req.body);
 });
