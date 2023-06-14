@@ -87,6 +87,16 @@ async function getAttendance(res, data){
     res.send(JSON.stringify(member.attendance));
 }
 
+async function updateAttendance(res, data){
+    //finding the user
+    var query = {name: data.name};
+    var member = await Member.find(query).limit(1);
+    member = member[0];
+    member.attendance = member.attendance + 1;
+    var result = await Member.findOneAndUpdate(query, member, {upsert: false});
+    res.send(result);
+}
+
 //creating the express server
 app.get('/getAllMembers', async function (req, res) {
     //getting the Members Documents
@@ -96,7 +106,12 @@ app.get('/getAllMembers', async function (req, res) {
 app.post('/getAttendance', async function (req, res){
     //getting the attendace of the member
     await getAttendance(res, req.body);
-})
+});
+
+app.post('/updateAttendance', async function (req, res){
+    //updating the attendance of the given user
+    await updateAttendance(res, req.body);
+});
 
 app.post('/insertMember', async function (req, res) {
     //inserting the data to the database
