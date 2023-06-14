@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({extended: true}));
 var Member;
 function openDbConnection() {
     // var connectionString = 'mongodb://127.0.0.1:27017/test'
-    var connectionString = 'mongodb+srv://himanshu:Himanshu728@testcluster.ox47qgk.mongodb.net/Test?retryWrites=true&w=majority';
+    var connectionString = 'mongodb+srv://himanshu:Himanshu728@testcluster.ox47qgk.mongodb.net/Demo?retryWrites=true&w=majority';
     mongoose.connect(connectionString).then(() => {
         console.log('connected to database');
         Member = getCollection();
@@ -27,6 +27,10 @@ function openDbConnection() {
 function getCollection() {
     //creating the document schema
     var schema = new mongoose.Schema({
+        empId:{
+            type: Number,
+            required: true
+        },
         name: {
             type: String,
             required: true
@@ -62,13 +66,13 @@ async function insertMember(res, data) {
 }
 
 async function updateMember(res, data){
-    var query = {name: data.name};
+    var query = {empId: data.empId};
     var result = await Member.findOneAndUpdate(query, data, {upsert: true});
     res.send(result);
 }
 
 async function deleteMembers(res, data){
-    var query = {name: data.name};
+    var query = {empId: data.empId};
     var result;
     if(data.deleteMode === 'Many'){
         result = await Member.deleteMany(query);
@@ -80,8 +84,8 @@ async function deleteMembers(res, data){
 }
 
 async function getAttendance(res, data){
-    //finding the user with name
-    var query = {name: data.name};
+    //finding the user with empId
+    var query = {empId: data.empId};
     var member = await Member.find(query);
     member = member[0];
     res.send(JSON.stringify(member.attendance));
@@ -89,7 +93,7 @@ async function getAttendance(res, data){
 
 async function updateAttendance(res, data){
     //finding the user
-    var query = {name: data.name};
+    var query = {empId: data.empId};
     var member = await Member.find(query).limit(1);
     member = member[0];
     member.attendance = member.attendance + 1;
