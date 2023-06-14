@@ -93,7 +93,7 @@ app.get('/getAllMembers', async function (req, res) {
     await getAllMembers(res);
 });
 
-app.get('/getAttendance', async function (req, res){
+app.post('/getAttendance', async function (req, res){
     //getting the attendace of the member
     await getAttendance(res, req.body);
 })
