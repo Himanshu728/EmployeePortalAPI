@@ -3,10 +3,10 @@ var mongoose = require('mongoose');
 var app = express();
 var bodyParser = require('body-parser');
 
-//setting the body parser for json
+//setting the body parser middleware for json
 app.use(bodyParser.json());
 
-//setting the body parser for form
+//setting the body parser middleware for form
 app.use(bodyParser.urlencoded({extended: true}));
 
 //database functions
@@ -79,11 +79,24 @@ async function deleteMembers(res, data){
     res.send(result);
 }
 
+async function getAttendance(res, data){
+    //finding the user with name
+    var query = {name: data.name};
+    var member = await Member.find(query);
+    member = member[0];
+    res.send(JSON.stringify(member.attendance));
+}
+
 //creating the express server
 app.get('/getAllMembers', async function (req, res) {
     //getting the Members Documents
     await getAllMembers(res);
 });
+
+app.get('/getAttendance', async function (req, res){
+    //getting the attendace of the member
+    await getAttendance(res, req.body);
+})
 
 app.post('/insertMember', async function (req, res) {
     //inserting the data to the database
