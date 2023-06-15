@@ -35,6 +35,14 @@ function getCollection() {
             type: String,
             required: true
         },
+        email: {
+            type: String,
+            default: 'himanshu.singh@insight.com'
+        },
+        rmEmail: {
+            type: String,
+            defualt: 'himanshu.singh@insight.com'
+        },
         role: {
             type: String,
             default: 'Engineer'
@@ -100,6 +108,22 @@ async function updateAttendance(res, data){
     res.send(result);
 }
 
+async function getEmail(res, data){
+    //getting the employee
+    var query = {empId: data.empId};
+    var member = Member.find(query).limit(1);
+    member = member[0];
+    res.send(member.email);
+}
+
+async function getRmEmail(res, data){
+    //getting the employee
+    var query = {empId: data.empId};
+    var member = Member.find(query).limit(1);
+    member = member[0];
+    res.send(member.rmEmail);
+}
+
 //creating the express server
 app.get('/getAllMembers', async function (req, res) {
     //getting the Members Documents
@@ -129,6 +153,16 @@ app.put('/updateMember', async function (req, res){
 app.delete('/deleteMembers', async function (req, res){
     //deleting the members that match the query
     await deleteMembers(res, req.body);
+});
+
+app.post('/getEmail', async function(req, res){
+    //getting the email from empId
+    await getEmail(res, req.data);
+});
+
+app.post('/getRmEmail', async function(req, res){
+    //getting the email from empId
+    await getRmEmail(res, req.data);
 });
 
 app.listen(process.env.PORT || 3000, function () {
