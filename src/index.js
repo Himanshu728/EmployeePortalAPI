@@ -137,7 +137,7 @@ async function rejectAttendance(res, data){
 async function getEmail(res, data) {
     //getting the employee
     var query = { empId: data.empId };
-    var member = Member.find(query).limit(1);
+    var member = await Member.find(query).limit(1);
     member = member[0];
     res.send(member.email);
 }
@@ -145,7 +145,7 @@ async function getEmail(res, data) {
 async function getRmEmail(res, data) {
     //getting the employee
     var query = { empId: data.empId };
-    var member = Member.find(query).limit(1);
+    var member = await Member.find(query).limit(1);
     member = member[0];
     res.send(member.rmEmail);
 }
@@ -234,6 +234,7 @@ app.post('/getEmail', async function (req, res) {
 
 app.post('/getRmEmail', async function (req, res) {
     //getting the email from empId
+    console.log(req.body);
     await getRmEmail(res, req.body);
 });
 
