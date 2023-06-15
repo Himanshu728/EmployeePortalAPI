@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Employee Attendance Portal</title>
+  <link rel="stylesheet" href="../statics/buttonStyle.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body>
+  {{>navbar}}
+  <div class="container" style="margin-top: 2.5%;">
+    <div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center; align-items: center;">
+      {{#each members}}
+      <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item"><b>Name:</b>: {{this.name}}</li>
+          <li class="list-group-item"><b>Email:</b> {{this.email}}</li>
+          <li class="list-group-item"><b>Attendance:</b> {{this.attendance}}</li>
+          <li class="list-group-item"><b>RmEmail:</b> {{this.rmEmail}}</li>
+          {{#if this.approval}}
+          <li class="list-group-item">
+            <button class="btn btn-sm btn-primary" id="{{this.empId}}"
+              onclick="updateAttendance(this.id)">Approve</button>
+            <button class="btn btn-sm btn-primary" id="{{this.empId}}"
+              onclick="rejectAttendance(this.id)">Reject</button>
+          </li>
+          {{/if}}
+        </ul>
+      </div>
+      {{!-- <div class="card-body">
+        <p class="card-text"><b>Name:</b>: {{this.name}}</p>
+        <p class="card-text"><b>Email:</b> {{this.email}}</p>
+        <p class="card-text"><b>Attendance:</b> {{this.attendance}}</p>
+        <p class="card-text"><b>RmEmail:</b> {{this.rmEmail}}</p>
+        {{#if this.approval}}
+        <button class="btn btn-sm btn-primary" id="{{this.empId}}" onclick="updateAttendance(this.id)">Approve</button>
+        {{/if}}
+      </div> --}}
+      {{/each}}
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+
+  <script>
+    function rejectAttendance(empId) {
+      var data = {
+        empId: empId
+      };
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.status == 200) {
+          window.location.reload();
+        }
+      };
+      xhttp.open("PUT", "/rejectAttendance", true);
+      xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+      xhttp.send(JSON.stringify(data));
+    }
+    function updateAttendance(empId) {
+      var data = {
+        empId: empId
+      };
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.status == 200) {
+          window.location.reload();
+        }
+      };
+      xhttp.open("PUT", "/updateAttendance", true);
+      xhttp.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+      xhttp.send(JSON.stringify(data));
+    }
+  </script>
+</body>
+
+</html>

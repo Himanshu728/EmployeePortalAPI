@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Employee Attendance Portal</title>
+  <link rel="stylesheet" href="../statics/buttonStyle.css">
+  <link rel="stylesheet" href="../statics/modalStyle.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+</head>
+
+<body>
+  <!-- The Modal -->
+  <div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <form action="/member" method="POST">
+        <input type="number" id="empIdINP" name="empId" placeholder="enter Employee Id"><br>
+        <input type="submit" value="Submit" class="btn btn-sm btn-primary">
+      </form>
+    </div>
+
+  </div>
+
+  <div style="display: flex; flex-direction: row; justify-content:center; align-items:center">
+    <img src="../statics/attendanceIMG.jpg" alt="attendace photo" style="width: 40%; height: auto; margin: 5%;">
+    <div style="display: flex; flex-direction: column; justify-content:center; align-items:center">
+      <a href="/admin" class="button button2">Admin</a>
+      <button class="button button2" id="myBtn">Member</button>
+    </div>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+    crossorigin="anonymous"></script>
+  <script src="../statics/modalJS.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
