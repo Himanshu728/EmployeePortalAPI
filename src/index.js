@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var hbs = require('hbs');
 var path = require('path');
 
+
 //setting the body parser middleware for json
 app.use(bodyParser.json());
 
@@ -191,6 +192,10 @@ app.get('/admin', async function (req, res) {
     });
 });
 
+app.get('/helper', function(req, res){
+    res.render('helper.hbs');
+});
+
 //creating the express server
 app.get('/getAllMembers', async function (req, res) {
     //getting the Members Documents
@@ -234,7 +239,6 @@ app.post('/getEmail', async function (req, res) {
 
 app.post('/getRmEmail', async function (req, res) {
     //getting the email from empId
-    console.log(req.body);
     await getRmEmail(res, req.body);
 });
 
