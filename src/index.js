@@ -162,7 +162,7 @@ async function markApproval(res, data) {
     var query = { empId: data.empId };
     var member = await Member.find(query).limit(1);
     member = member[0];
-    member.approval = true;
+    member.approval = !(member,markApproval);
     var respones = await Member.findOneAndUpdate(query, member);
     res.send(respones);
 }
