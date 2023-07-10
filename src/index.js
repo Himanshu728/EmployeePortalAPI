@@ -172,6 +172,12 @@ async function getMember(res, data){
     return response;
 }
 
+async function getMemberCondition(res, condition){
+    var query = {$and: [{attendance: {$gte: 20}}, {name: 'Himanshu Singh'}]};
+    var respones = await Member.find(query);
+    res.send(respones);
+}
+
 app.get('/', function(req, res){
     res.render('index.hbs');
 })
@@ -201,6 +207,10 @@ app.get('/getAllMembers', async function (req, res) {
     //getting the Members Documents
     await getAllMembers(res);
 });
+
+app.get('/getMemberCondition', async function(req, res){
+    await getMemberCondition(res);
+})
 
 app.post('/getAttendance', async function (req, res) {
     //getting the attendace of the member
